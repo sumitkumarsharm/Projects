@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drag & Drop TODO App</title>
+    <link rel="stylesheet" href="styles.css ">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1 id="name"><span>Created by</span>Sumit sharma</h1>
+        <h1>TODO App</h1>
+
+        <div class="add-task">
+            <input type="text" id="taskInput" placeholder="Enter a new task...">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+
+        <div class="board-container">
+            <div class="board" id="mainBoard">
+                <div class="column" id="todo">
+                    <h2>Tasks</h2>
+                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <!-- Tasks will be added here -->
+                    </div>
+                </div>
+
+                <div class="column" id="inProgress">
+                    <h2>In Progress</h2>
+                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <!-- In progress tasks will be here -->
+                    </div>
+                </div>
+
+                <div class="column" id="done">
+                    <h2>Done</h2>
+                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)">
+                        <!-- Completed tasks will be here -->
+                    </div>
+                </div>
+            </div>
+
+            <button class="add-column-btn" onclick="openAddColumnModal()">
+                <i class="fas fa-plus"></i>
+                Add Column
+            </button>
+        </div>
+
+        <!-- Edit Task Modal -->
+        <div id="editModal" class="modal">
+            <div class="modal-content">
+                <h3>Edit Task</h3>
+                <input type="text" id="editTaskInput">
+                <div class="modal-buttons">
+                    <button onclick="saveEdit()">Save</button>
+                    <button onclick="closeModal('editModal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Add Column Modal -->
+        <div id="addColumnModal" class="modal">
+            <div class="modal-content">
+                <h3>Add New Column</h3>
+                <input type="text" id="columnNameInput" placeholder="Enter column name...">
+                <div class="modal-buttons">
+                    <button onclick="addNewColumn()">Add</button>
+                    <button onclick="closeModal('addColumnModal')">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>

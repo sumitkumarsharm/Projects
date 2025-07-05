@@ -4,67 +4,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="A draggable, responsive TODO app by Sumit Sharma with task editing, progress tracking, and column creation features.">
+    <meta name="author" content="Sumit Sharma">
     <title>Drag & Drop TODO App</title>
-    <link rel="stylesheet" href="styles.css ">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
 <body>
     <div class="container">
-        <h1 id="name"><span>Created by</span>Sumit sharma</h1>
-        <h1>TODO App</h1>
+        <header>
+            <h1><span>Created by</span> Sumit Sharma</h1>
+            <h2>TODO App</h2>
+        </header>
 
+        <!-- Task Input -->
         <div class="add-task">
             <input type="text" id="taskInput" placeholder="Enter a new task...">
             <button onclick="addTask()">Add Task</button>
         </div>
 
+        <!-- Task Boards -->
         <div class="board-container">
             <div class="board" id="mainBoard">
+
+                <!-- To Do Column -->
                 <div class="column" id="todo">
-                    <h2>Tasks</h2>
-                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <!-- Tasks will be added here -->
-                    </div>
+                    <h3>Tasks</h3>
+                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
 
+                <!-- In Progress Column -->
                 <div class="column" id="inProgress">
-                    <h2>In Progress</h2>
-                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <!-- In progress tasks will be here -->
-                    </div>
+                    <h3>In Progress</h3>
+                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
 
+                <!-- Done Column -->
                 <div class="column" id="done">
-                    <h2>Done</h2>
-                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)">
-                        <!-- Completed tasks will be here -->
-                    </div>
+                    <h3>Done</h3>
+                    <div class="task-list" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
                 </div>
             </div>
 
+            <!-- Add Column Button -->
             <button class="add-column-btn" onclick="openAddColumnModal()">
-                <i class="fas fa-plus"></i>
-                Add Column
+                <i class="fas fa-plus"></i> Add Column
             </button>
         </div>
 
         <!-- Edit Task Modal -->
         <div id="editModal" class="modal">
             <div class="modal-content">
-                <h3>Edit Task</h3>
+                <h4>Edit Task</h4>
                 <input type="text" id="editTaskInput">
                 <div class="modal-buttons">
                     <button onclick="saveEdit()">Save</button>
                     <button onclick="closeModal('editModal')">Cancel</button>
                 </div>
             </div>
-        </div>
+        </div>  
 
         <!-- Add Column Modal -->
         <div id="addColumnModal" class="modal">
             <div class="modal-content">
-                <h3>Add New Column</h3>
+                <h4>Add New Column</h4>
                 <input type="text" id="columnNameInput" placeholder="Enter column name...">
                 <div class="modal-buttons">
                     <button onclick="addNewColumn()">Add</button>
@@ -72,8 +79,8 @@
                 </div>
             </div>
         </div>
-
     </div>
+
     <script src="script.js"></script>
 </body>
 

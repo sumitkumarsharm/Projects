@@ -1,3 +1,4 @@
+const copyrightDate = document.getElementById("copyrightDate");
 const inputElement = document.getElementById("email");
 const newsLetterButton = document.getElementById("newsLetterButton");
 
@@ -26,3 +27,10 @@ function SignUp() {
   toggleNewsLetter();
   newsLetterButton.textContent = "Subscribed ✅";
 }
+
+function updateCopyrightYear() {
+  const currentYear = new Date().getFullYear();
+  copyrightDate.textContent = currentYear;
+}
+
+updateCopyrightYear();

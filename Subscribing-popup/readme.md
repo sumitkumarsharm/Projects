@@ -41,6 +41,6 @@ This project is a responsive **Newsletter Popup** built using HTML, CSS, and Jav
 1. Clone this repo:
 
 ```bash
-   git clone https://github.com/your-username/newsletter-popup-js.git
+   git
    cd newsletter-popup-js
 ```

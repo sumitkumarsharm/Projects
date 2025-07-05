@@ -21,6 +21,7 @@ function SignUp() {
     return;
   }
 
+  // tostr ke liye
   toastr.success("Thanks for subscribing!");
   toggleNewsLetter();
   newsLetterButton.textContent = "Subscribed ✅";

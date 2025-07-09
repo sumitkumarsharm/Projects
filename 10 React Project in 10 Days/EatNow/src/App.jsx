@@ -6,18 +6,32 @@ const App = () => {
   const [allItems, setAllItems] = useState([]);
   const [searchQuerries, setSearchQuerries] = useState("");
   const [mealType, setMealType] = useState("All");
+  const [loading, setLoading] = useState(false);
+
   const BASE_URL = "https://dummyjson.com/recipes";
 
+  // fetching the data from API
   useEffect(() => {
-    fetch(BASE_URL)
-      .then((res) => res.json())
-      .then((data) => setAllItems(data.recipes));
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(BASE_URL);
+        const data = await response.json();
+        setAllItems(data.recipes);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
   }, []);
+
+  // filtering the recipes
   const filteredItems = allItems.filter((item) => {
     const matchSearch = item.name
       .toLowerCase()
       .includes(searchQuerries.toLowerCase());
-      const matchMeal = mealType === "All" || item.mealType.includes(mealType);
+    const matchMeal = mealType === "All" || item.mealType.includes(mealType);
     return matchSearch && matchMeal;
   });
 
@@ -30,7 +44,7 @@ const App = () => {
           setMealType={setMealType}
         />
         <main className="mt-10">
-          <AllCards filteredItems={filteredItems} />
+          <AllCards filteredItems={filteredItems} loading={loading} />
         </main>
       </div>
     </div>

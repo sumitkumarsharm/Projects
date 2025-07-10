@@ -31,7 +31,6 @@ const App = () => {
           ...doc.data(),
         }));
         setAllData(contactList);
-        console.log(AllData);
       } catch (error) {
         console.error("Failed to fetch contacts:", error);
       }

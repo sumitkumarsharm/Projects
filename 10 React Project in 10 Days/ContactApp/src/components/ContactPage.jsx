@@ -16,7 +16,6 @@ const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
               key={i}
               className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border border-neutral-700 rounded-xl p-4 bg-neutral-800 shadow-md transition-all"
             >
-              {/* Left side: Profile + Contact Info */}
               <div className="flex items-start sm:items-center gap-4 flex-1">
                 <div className="bg-neutral-700 p-2 rounded-full">
                   <CgProfile className="text-3xl text-white" />
@@ -31,7 +30,7 @@ const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
                 </div>
               </div>
 
-              {/* Right side: Action Buttons */}
+           
               <div className="flex gap-3 justify-end sm:justify-start">
                 <button
                   className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white text-lg"

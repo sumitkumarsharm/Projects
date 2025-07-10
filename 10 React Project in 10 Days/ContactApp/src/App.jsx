@@ -9,7 +9,7 @@ import {
   doc,
 } from "firebase/firestore";
 
-import { db } from "./config/firebase"; // Firestore config
+import { db } from "./config/firebase";
 
 const App = () => {
   const [showcontact, setshowcontact] = useState(false);
@@ -21,7 +21,6 @@ const App = () => {
   const [PassError, setPasError] = useState("");
   const [editIndex, setEditIndex] = useState(null);
 
-  // ✅ Load contacts from Firestore once
   useEffect(() => {
     const getContact = async () => {
       try {
@@ -41,7 +40,7 @@ const App = () => {
     getContact();
   }, []);
 
-  // ❌ Cancel form
+  // Cancle form button
   const HandleCancel = (e) => {
     e.preventDefault();
     setNameField("");
@@ -52,7 +51,7 @@ const App = () => {
     setPasError("");
   };
 
-  // ✅ Add new contact (Firestore + UI)
+  // Adding all data from form
   const submitText = async (e) => {
     e.preventDefault();
 
@@ -76,22 +75,33 @@ const App = () => {
 
     try {
       if (editIndex !== null) {
-        // For now, just update locally
-        const updated = [...AllData];
-        updated[editIndex] = {
-          ...updated[editIndex],
+        const contactToUpdate = AllData[editIndex];
+        if (!contactToUpdate.id) {
+          console.warn("Cannot update contact without a valid ID ");
+          return;
+        }
+
+        const contactRef = doc(db, "contacts", contactToUpdate.id);
+
+        await updateDoc(contactRef, {
+          name: nameField,
+          number: passeorField,
+        });
+
+        // localy updation
+        const updatedContacts = [...AllData];
+        updatedContacts[editIndex] = {
+          ...contactToUpdate,
           name: nameField,
           number: passeorField,
         };
-        setAllData(updated);
+        setAllData(updatedContacts);
       } else {
-        // ✅ Save new contact to Firestore
         const docRef = await addDoc(collection(db, "contacts"), {
           name: nameField,
           number: passeorField,
         });
 
-        // Update local list
         setAllData((prev) => [
           ...prev,
           { id: docRef.id, name: nameField, number: passeorField },
@@ -110,7 +120,7 @@ const App = () => {
     }
   };
 
-  // ❌ Delete (only local for now)
+  // Delete the data from firebase
   const handleDelete = async (index) => {
     try {
       const contact = AllData[index];
@@ -129,7 +139,7 @@ const App = () => {
     }
   };
 
-  // ✏️ Edit
+  // Editing Data from firebase
   const handleEdit = (index) => {
     const contact = AllData[index];
     setNameField(contact?.name || "");
@@ -138,7 +148,7 @@ const App = () => {
     setshowcontact(true);
   };
 
-  // 🔍 Filter
+  // Searching Based on refelacted data
   const filteredContacts = AllData.filter((contact) =>
     `${contact.name} ${contact.number}`
       .toLowerCase()

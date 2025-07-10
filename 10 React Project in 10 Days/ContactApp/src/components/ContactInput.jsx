@@ -7,6 +7,8 @@ const ContactInput = ({
   setPasseorField,
   submitText,
   HandleCancel,
+  NameError,
+  PassError,
 }) => {
   return (
     <form className="absolute inset-0 z-50  flex items-center justify-center backdrop-blur-xs bg-black/5     contact-form">
@@ -25,6 +27,7 @@ const ContactInput = ({
             placeholder="Enter name"
             className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
           />
+          {NameError && <span className="text-red-500">{NameError}</span>}
         </div>
 
         <div className="flex flex-col gap-1">
@@ -39,6 +42,7 @@ const ContactInput = ({
             placeholder="Enter number"
             className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
           />
+          {PassError && <span className="text-red-500">{PassError}</span>}
         </div>
 
         <div className="flex justify-end gap-3 mt-4">

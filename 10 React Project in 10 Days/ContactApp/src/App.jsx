@@ -7,6 +7,8 @@ const App = () => {
   const [passeorField, setPasseorField] = useState();
   const [AllData, setAllData] = useState([]);
   const [search, setSearch] = useState("");
+  const [NameError, setNameError] = useState("");
+  const [PassError, setPasError] = useState("");
 
   const HandleCancel = (e) => {
     e.preventDefault();
@@ -17,11 +19,16 @@ const App = () => {
 
   const submitText = (e) => {
     e.preventDefault();
+    if (!nameField?.trim() || !passeorField?.trim()) {
+      setNameError("Name is required!");
+      setPasError("Number is required!");
+      return;
+    }
     setAllData((prev) => [...prev, { name: nameField, number: passeorField }]);
     setshowcontact(false);
     setPasseorField("");
     setNameField("");
-    setSearch(""); 
+    setSearch("");
   };
 
   const filteredContacts = AllData.filter((contact) =>
@@ -42,6 +49,8 @@ const App = () => {
         filteredContacts={filteredContacts}
         search={search}
         setSearch={setSearch}
+        NameError={NameError}
+        PassError={PassError}
       />
     </div>
   );

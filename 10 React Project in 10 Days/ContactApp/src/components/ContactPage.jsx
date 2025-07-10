@@ -5,12 +5,15 @@ import { FiEdit3 } from "react-icons/fi";
 
 const ContactPage = ({ filteredContacts = [] }) => {
   return (
-    <div className="min-w-full min-h-screen px-4 py-6 ">
+    <div className="w-full px-1">
       {filteredContacts.length > 0 ? (
-        <div className="flex flex-col gap-5">
-          {filteredContacts.map((contact) => (
+        <div
+          className=" w-full max-h-[80vh] overflow-y-auto flex flex-col gap-5 pr-2 "
+          style={{ scrollbarWidth: "none" }}
+        >
+          {filteredContacts.map((contact, i) => (
             <div
-              key={contact.name}
+              key={i}
               className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border border-neutral-700 rounded-xl p-4 bg-neutral-800 shadow-md transition-all"
             >
               {/* Left side: Profile + Contact Info */}

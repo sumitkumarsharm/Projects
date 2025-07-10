@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import HomePage from "./components/HomePage";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "./config/firebase";
-import { db, ref, push, set } from "./firebase";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  updateDoc,
+  doc,
+} from "firebase/firestore";
+
+import { db } from "./config/firebase"; // Firestore config
 
 const App = () => {
   const [showcontact, setshowcontact] = useState(false);
@@ -14,25 +21,27 @@ const App = () => {
   const [PassError, setPasError] = useState("");
   const [editIndex, setEditIndex] = useState(null);
 
+  // ✅ Load contacts from Firestore once
   useEffect(() => {
     const getContact = async () => {
       try {
         const contactCollection = collection(db, "contacts");
         const contactSnapshot = await getDocs(contactCollection);
-        const contactList = contactSnapshot.docs.map((doc) => {
-          return {
-            id: doc.id,
-            ...doc.data(),
-          };
-        });
+        const contactList = contactSnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
         setAllData(contactList);
-        console.log(contactList);
-      } catch (error) {}
+        console.log(AllData);
+      } catch (error) {
+        console.error("Failed to fetch contacts:", error);
+      }
     };
+
     getContact();
   }, []);
 
-  // -------------------------- Cancel --------------------------
+  // ❌ Cancel form
   const HandleCancel = (e) => {
     e.preventDefault();
     setNameField("");
@@ -43,7 +52,7 @@ const App = () => {
     setPasError("");
   };
 
-  // -------------------------- Submit --------------------------
+  // ✅ Add new contact (Firestore + UI)
   const submitText = async (e) => {
     e.preventDefault();
 
@@ -65,37 +74,62 @@ const App = () => {
 
     if (hasError) return;
 
-    if (editIndex !== null) {
-      const updatedContacts = [...AllData];
-      updatedContacts[editIndex] = {
-        name: nameField,
-        number: passeorField,
-      };
-      setAllData(updatedContacts);
-    } else {
-      setAllData((prev) => [
-        ...prev,
-        { name: nameField, number: passeorField },
-      ]);
+    try {
+      if (editIndex !== null) {
+        // For now, just update locally
+        const updated = [...AllData];
+        updated[editIndex] = {
+          ...updated[editIndex],
+          name: nameField,
+          number: passeorField,
+        };
+        setAllData(updated);
+      } else {
+        // ✅ Save new contact to Firestore
+        const docRef = await addDoc(collection(db, "contacts"), {
+          name: nameField,
+          number: passeorField,
+        });
+
+        // Update local list
+        setAllData((prev) => [
+          ...prev,
+          { id: docRef.id, name: nameField, number: passeorField },
+        ]);
+      }
+
+      // Reset form
+      setNameField("");
+      setPasseorField("");
+      setshowcontact(false);
+      setEditIndex(null);
+      setNameError("");
+      setPasError("");
+    } catch (error) {
+      console.error("Error saving to Firebase:", error);
     }
-
-    //  -------------------------- Reset --------------------------
-    setNameField("");
-    setPasseorField("");
-    setshowcontact(false);
-    setEditIndex(null);
-    setNameError("");
-    setPasError("");
   };
 
-  // -------------------------- Delete --------------------------
-  const handleDelete = (index) => {
-    const updatedContacts = AllData.filter((_, i) => i !== index);
-    setAllData(updatedContacts);
+  // ❌ Delete (only local for now)
+  const handleDelete = async (index) => {
+    try {
+      const contact = AllData[index];
+      if (!contact.id) {
+        console.warn("Contact has no ID — cannot delete from Firestore.");
+        return;
+      }
+
+      // Delete the data from firebase
+      await deleteDoc(doc(db, "contacts", contact.id));
+
+      const updated = AllData.filter((_, i) => i !== index);
+      setAllData(updated);
+    } catch (error) {
+      console.error("Failed to delete contact:", error);
+    }
   };
 
-  // -------------------------- Edit --------------------------
-
+  // ✏️ Edit
   const handleEdit = (index) => {
     const contact = AllData[index];
     setNameField(contact?.name || "");
@@ -104,7 +138,7 @@ const App = () => {
     setshowcontact(true);
   };
 
-  // ------------------------- Search -------------------------
+  // 🔍 Filter
   const filteredContacts = AllData.filter((contact) =>
     `${contact.name} ${contact.number}`
       .toLowerCase()

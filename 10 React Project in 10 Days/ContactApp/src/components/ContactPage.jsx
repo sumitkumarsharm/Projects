@@ -23,10 +23,10 @@ const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
                 </div>
                 <div className="text-white">
                   <h2 className="text-lg font-semibold break-words">
-                    {contact.Name}
+                    {contact.name}
                   </h2>
                   <p className="text-sm text-gray-400 break-words">
-                    {contact.Phone}
+                    {contact.number}
                   </p>
                 </div>
               </div>

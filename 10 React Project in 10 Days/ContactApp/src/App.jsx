@@ -141,6 +141,7 @@ const App = () => {
   // Editing Data from firebase
   const handleEdit = (index) => {
     const contact = AllData[index];
+    console.log("Editing contact:", contact);
     setNameField(contact?.name || "");
     setPasseorField(contact?.number || "");
     setEditIndex(index);
@@ -159,7 +160,9 @@ const App = () => {
       <HomePage
         showcontact={showcontact}
         setshowcontact={setshowcontact}
+        nameField={nameField}
         setNameField={setNameField}
+        passeorField={passeorField}
         setPasseorField={setPasseorField}
         submitText={submitText}
         HandleCancel={HandleCancel}
@@ -170,6 +173,7 @@ const App = () => {
         PassError={PassError}
         handleDelete={handleDelete}
         handleEdit={handleEdit}
+        editIndex={editIndex}
       />
     </div>
   );

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Editor with Emmet</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://codemirror.net/6/theme/one-dark.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="left">
+            <div class="box">
+                <label>HTML</label>
+                <div id="html-code" class="editor"></div>
+            </div>
+            <div class="box">
+                <label>CSS</label>
+                <div id="css-code" class="editor"></div>
+            </div>
+            <div class="box">
+                <label>JavaScript</label>
+                <div id="js-code" class="editor"></div>
+            </div>
+        </div>
+        <div class="right">
+            <label>Output</label>
+            <iframe id="output"></iframe>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>

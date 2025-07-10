@@ -16,6 +16,9 @@ const HomePage = ({
   setSearch,
   NameError,
   PassError,
+  handleDelete,
+  handleEdit,
+  editIndex,
 }) => {
   return (
     <div className="relative max-w-2xl w-full min-h-screen  overflow-y-auto rounded-md mx-auto border px-4 py-6 flex flex-col gap-6 items-center bg-neutral-800">
@@ -53,7 +56,11 @@ const HomePage = ({
           PassError={PassError}
         />
       )}
-      <ContactPage filteredContacts={filteredContacts} />
+      <ContactPage
+        filteredContacts={filteredContacts}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+      />
     </div>
   );
 };

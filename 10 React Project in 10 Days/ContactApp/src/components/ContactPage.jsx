@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
 
-const ContactPage = ({ filteredContacts = [] }) => {
+const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
   return (
     <div className="w-full px-1">
       {filteredContacts.length > 0 ? (
@@ -23,20 +23,26 @@ const ContactPage = ({ filteredContacts = [] }) => {
                 </div>
                 <div className="text-white">
                   <h2 className="text-lg font-semibold break-words">
-                    {contact.name}
+                    {contact.Name}
                   </h2>
                   <p className="text-sm text-gray-400 break-words">
-                    {contact.number}
+                    {contact.Phone}
                   </p>
                 </div>
               </div>
 
               {/* Right side: Action Buttons */}
               <div className="flex gap-3 justify-end sm:justify-start">
-                <button className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white text-lg">
+                <button
+                  className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white text-lg"
+                  onClick={() => handleEdit(i)}
+                >
                   <FiEdit3 />
                 </button>
-                <button className="p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white text-lg">
+                <button
+                  className="p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white text-lg"
+                  onClick={() => handleDelete(i)}
+                >
                   <MdDelete />
                 </button>
               </div>

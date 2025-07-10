@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const ContactInput = ({
   nameField,
@@ -21,8 +21,8 @@ const ContactInput = ({
           </label>
           <input
             id="name"
-            onChange={(e) => setNameField(e.target.value)}
             value={nameField}
+            onChange={(e) => setNameField(e.target.value)}
             type="text"
             placeholder="Enter name"
             className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
@@ -35,8 +35,8 @@ const ContactInput = ({
             Contact Number
           </label>
           <input
-            onChange={(e) => setPasseorField(e.target.value)}
             value={passeorField}
+            onChange={(e) => setPasseorField(e.target.value)}
             id="number"
             type="text"
             placeholder="Enter number"

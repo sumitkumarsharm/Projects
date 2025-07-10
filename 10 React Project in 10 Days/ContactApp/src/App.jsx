@@ -1,36 +1,110 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HomePage from "./components/HomePage";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "./config/firebase";
+import { db, ref, push, set } from "./firebase";
 
 const App = () => {
   const [showcontact, setshowcontact] = useState(false);
-  const [nameField, setNameField] = useState();
-  const [passeorField, setPasseorField] = useState();
+  const [nameField, setNameField] = useState("");
+  const [passeorField, setPasseorField] = useState("");
   const [AllData, setAllData] = useState([]);
   const [search, setSearch] = useState("");
   const [NameError, setNameError] = useState("");
   const [PassError, setPasError] = useState("");
+  const [editIndex, setEditIndex] = useState(null);
 
+  useEffect(() => {
+    const getContact = async () => {
+      try {
+        const contactCollection = collection(db, "contacts");
+        const contactSnapshot = await getDocs(contactCollection);
+        const contactList = contactSnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+        setAllData(contactList);
+        console.log(contactList);
+      } catch (error) {}
+    };
+    getContact();
+  }, []);
+
+  // -------------------------- Cancel --------------------------
   const HandleCancel = (e) => {
     e.preventDefault();
-    setshowcontact(false);
-    setPasseorField("");
     setNameField("");
+    setPasseorField("");
+    setshowcontact(false);
+    setEditIndex(null);
+    setNameError("");
+    setPasError("");
   };
 
-  const submitText = (e) => {
+  // -------------------------- Submit --------------------------
+  const submitText = async (e) => {
     e.preventDefault();
-    if (!nameField?.trim() || !passeorField?.trim()) {
+
+    let hasError = false;
+
+    if (!nameField.trim()) {
       setNameError("Name is required!");
-      setPasError("Number is required!");
-      return;
+      hasError = true;
+    } else {
+      setNameError("");
     }
-    setAllData((prev) => [...prev, { name: nameField, number: passeorField }]);
-    setshowcontact(false);
-    setPasseorField("");
+
+    if (!passeorField.trim()) {
+      setPasError("Number is required!");
+      hasError = true;
+    } else {
+      setPasError("");
+    }
+
+    if (hasError) return;
+
+    if (editIndex !== null) {
+      const updatedContacts = [...AllData];
+      updatedContacts[editIndex] = {
+        name: nameField,
+        number: passeorField,
+      };
+      setAllData(updatedContacts);
+    } else {
+      setAllData((prev) => [
+        ...prev,
+        { name: nameField, number: passeorField },
+      ]);
+    }
+
+    //  -------------------------- Reset --------------------------
     setNameField("");
-    setSearch("");
+    setPasseorField("");
+    setshowcontact(false);
+    setEditIndex(null);
+    setNameError("");
+    setPasError("");
   };
 
+  // -------------------------- Delete --------------------------
+  const handleDelete = (index) => {
+    const updatedContacts = AllData.filter((_, i) => i !== index);
+    setAllData(updatedContacts);
+  };
+
+  // -------------------------- Edit --------------------------
+
+  const handleEdit = (index) => {
+    const contact = AllData[index];
+    setNameField(contact?.name || "");
+    setPasseorField(contact?.number || "");
+    setEditIndex(index);
+    setshowcontact(true);
+  };
+
+  // ------------------------- Search -------------------------
   const filteredContacts = AllData.filter((contact) =>
     `${contact.name} ${contact.number}`
       .toLowerCase()
@@ -51,6 +125,8 @@ const App = () => {
         setSearch={setSearch}
         NameError={NameError}
         PassError={PassError}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
       />
     </div>
   );

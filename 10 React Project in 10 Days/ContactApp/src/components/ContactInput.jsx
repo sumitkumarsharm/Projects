@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const ContactInput = ({
   nameField,
@@ -11,11 +11,6 @@ const ContactInput = ({
   PassError,
   editIndex,
 }) => {
-  useEffect(() => {
-    console.log("ContactInput mounted with:");
-    console.log("Name:", nameField);
-    console.log("Number:", passeorField);
-  }, []);
   return (
     <form className="absolute inset-0 z-50  flex items-center justify-center backdrop-blur-xs bg-black/5     contact-form">
       <div className="w-full max-w-md flex flex-col gap-4 bg-gray-800 px-6 py-6 rounded-lg text-white shadow-lg">

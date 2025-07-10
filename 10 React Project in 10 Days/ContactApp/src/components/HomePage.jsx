@@ -54,6 +54,7 @@ const HomePage = ({
           HandleCancel={HandleCancel}
           NameError={NameError}
           PassError={PassError}
+          editIndex={editIndex}
         />
       )}
       <ContactPage

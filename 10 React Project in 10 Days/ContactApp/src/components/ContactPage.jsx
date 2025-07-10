@@ -2,6 +2,7 @@ import React from "react";
 import { CgProfile } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
+import { RiUserForbidFill } from "react-icons/ri";
 
 const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
   return (
@@ -48,7 +49,8 @@ const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
           ))}
         </div>
       ) : (
-        <div className="flex justify-center items-center h-[60vh]">
+        <div className="flex justify-center gap-2 items-center h-[60vh]">
+          <RiUserForbidFill className="text-4xl text-gray-400" /> 
           <h2 className="text-2xl font-semibold text-gray-400">
             No contacts added yet
           </h2>

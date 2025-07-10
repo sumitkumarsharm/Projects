@@ -30,16 +30,15 @@ const ContactPage = ({ filteredContacts = [], handleDelete, handleEdit }) => {
                 </div>
               </div>
 
-           
               <div className="flex gap-3 justify-end sm:justify-start">
                 <button
-                  className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white text-lg"
+                  className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white text-lg cursor-pointer"
                   onClick={() => handleEdit(i)}
                 >
                   <FiEdit3 />
                 </button>
                 <button
-                  className="p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white text-lg"
+                  className="p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white text-lg cursor-pointer"
                   onClick={() => handleDelete(i)}
                 >
                   <MdDelete />

@@ -34,10 +34,10 @@ const HomePage = ({
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Enter contact"
-          className="flex-grow border text-base sm:text-lg outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
+          className="flex-grow border text-base sm:text-lg outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400 focus:border-green-500 focus:ring-green-500 "
         />
         <button
-          className="px-6 py-2 border rounded-md text-base sm:text-lg bg-white text-black hover:bg-gray-200 transition"
+          className="px-6 py-2 border rounded-md text-base sm:text-lg bg-white text-black hover:bg-gray-200 transition focus:border-green-500 focus:ring-green-500 cursor-pointer"
           onClick={() => setshowcontact((prev) => !prev)}
         >
           Add

@@ -33,7 +33,7 @@ const ContactInput = ({
             onChange={(e) => setNameField(e.target.value)}
             type="text"
             placeholder="Enter name"
-            className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
+            className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400 focus:border-green-500 focus:ring-green-500 "
           />
           {NameError && <span className="text-red-500">{NameError}</span>}
         </div>
@@ -48,20 +48,20 @@ const ContactInput = ({
             id="number"
             type="text"
             placeholder="Enter number"
-            className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
+            className="w-full border text-base outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400 focus:border-green-500 focus:ring-green-500"
           />
           {PassError && <span className="text-red-500">{PassError}</span>}
         </div>
 
         <div className="flex justify-end gap-3 mt-4">
           <button
-            className="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200"
+            className="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200 cursor-pointer"
             onClick={HandleCancel}
           >
             Cancel
           </button>
           <button
-            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 cursor-pointer"
             onClick={submitText}
           >
             {editIndex !== null ? "Update" : "Save"}

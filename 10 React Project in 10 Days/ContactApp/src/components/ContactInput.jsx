@@ -5,6 +5,8 @@ const ContactInput = ({
   setNameField,
   passeorField,
   setPasseorField,
+  submitText,
+  HandleCancel,
 }) => {
   return (
     <form className="absolute inset-0 z-50  flex items-center justify-center backdrop-blur-xs bg-black/5     contact-form">
@@ -40,10 +42,16 @@ const ContactInput = ({
         </div>
 
         <div className="flex justify-end gap-3 mt-4">
-          <button className="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200">
+          <button
+            className="px-4 py-2 bg-white text-black rounded-md hover:bg-gray-200"
+            onClick={HandleCancel}
+          >
             Cancel
           </button>
-          <button className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600">
+          <button
+            className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600"
+            onClick={submitText}
+          >
             Save
           </button>
         </div>

@@ -9,6 +9,11 @@ const HomePage = ({
   setNameField,
   passeorField,
   setPasseorField,
+  submitText,
+  HandleCancel,
+  filteredContacts,
+  search,
+  setSearch,
 }) => {
   return (
     <div className="relative max-w-xl w-full min-h-screen rounded-md mx-auto border px-4 py-6 flex flex-col gap-6 items-center bg-neutral-800">
@@ -21,6 +26,8 @@ const HomePage = ({
       <div className="w-full flex flex-col sm:flex-row gap-3 text-white z-10">
         <input
           type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           placeholder="Enter contact"
           className="flex-grow border text-base sm:text-lg outline-none px-3 py-2 rounded-md bg-neutral-700 placeholder:text-gray-400"
         />
@@ -38,8 +45,11 @@ const HomePage = ({
           setNameField={setNameField}
           passeorField={passeorField}
           setPasseorField={setPasseorField}
+          submitText={submitText}
+          HandleCancel={HandleCancel}
         />
       )}
+      <ContactPage filteredContacts={filteredContacts} />
     </div>
   );
 };

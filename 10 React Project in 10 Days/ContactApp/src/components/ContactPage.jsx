@@ -3,21 +3,50 @@ import { CgProfile } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { FiEdit3 } from "react-icons/fi";
 
-const ContactPage = () => {
+const ContactPage = ({ filteredContacts = [] }) => {
   return (
-    <div className="min-w-full min-h-screen">
-      <div className="flex gap-2  px-3 py-2 rounded-md bg-neutral-500 text-white">
-        <CgProfile className="text-5xl font-extralight" />
+    <div className="min-w-full min-h-screen px-4 py-6 ">
+      {filteredContacts.length > 0 ? (
+        <div className="flex flex-col gap-5">
+          {filteredContacts.map((contact) => (
+            <div
+              key={contact.name}
+              className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border border-neutral-700 rounded-xl p-4 bg-neutral-800 shadow-md transition-all"
+            >
+              {/* Left side: Profile + Contact Info */}
+              <div className="flex items-start sm:items-center gap-4 flex-1">
+                <div className="bg-neutral-700 p-2 rounded-full">
+                  <CgProfile className="text-3xl text-white" />
+                </div>
+                <div className="text-white">
+                  <h2 className="text-lg font-semibold break-words">
+                    {contact.name}
+                  </h2>
+                  <p className="text-sm text-gray-400 break-words">
+                    {contact.number}
+                  </p>
+                </div>
+              </div>
 
-        <div className="grow">
-          <h1>Sumit sharma</h1>
-          <p>name@gmail.com</p>
+              {/* Right side: Action Buttons */}
+              <div className="flex gap-3 justify-end sm:justify-start">
+                <button className="p-2 rounded-md bg-blue-500 hover:bg-blue-600 transition text-white text-lg">
+                  <FiEdit3 />
+                </button>
+                <button className="p-2 rounded-md bg-red-500 hover:bg-red-600 transition text-white text-lg">
+                  <MdDelete />
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-        <div className=" flex items-center gap-2">
-          <FiEdit3 className="text-3xl  cursor-pointer font-extralight" />
-          <MdDelete className="text-3xl cursor-pointer  font-extralight" />
+      ) : (
+        <div className="flex justify-center items-center h-[60vh]">
+          <h2 className="text-2xl font-semibold text-gray-400">
+            No contacts added yet
+          </h2>
         </div>
-      </div>
+      )}
     </div>
   );
 };

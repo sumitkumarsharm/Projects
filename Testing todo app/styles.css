@@ -1,0 +1,184 @@
+:root {
+    --main-bg: #f6f8fa;
+    --card-bg: #fff;
+    --text: #222;
+    --border: #d1d5db;
+}
+
+body.dark {
+    --main-bg: #1a1b1e;
+    --card-bg: #222436;
+    --text: #f6f8fa;
+    --border: #33354c;
+}
+
+body {
+    background: var(--main-bg);
+    color: var(--text);
+    margin: 0;
+    font-family: sans-serif;
+    min-height: 100vh;
+}
+
+.header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.add-section {
+    padding: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    background: var(--main-bg);
+}
+
+.board {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex: 1 1 300px;
+    min-width: 280px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.col-header {
+    padding: 0.5rem 0;
+    font-weight: bold;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+}
+
+.task {
+    background: var(--main-bg);
+    color: var(--text);
+    border-radius: 6px;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: 1px solid var(--border);
+    cursor: grab;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.task .time {
+    font-size: 0.60rem;
+    color: #888;
+    margin-top: 2px;
+}
+
+@media (max-width: 900px) {
+    .board {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+}
+
+input,
+button {
+    font-size: 1em;
+    padding: 0.4em 0.8em;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+}
+
+button {
+    background: var(--card-bg);
+    color: var(--text);
+    cursor: pointer;
+}
+
+input:focus,
+button:focus {
+    outline: 2px solid #4f46e5;
+}
+
+.task {
+    position: relative;
+    padding-right: 80px;
+}
+
+.task-buttons {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: flex;
+    gap: 4px;
+}
+
+.task-buttons button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    color: var(--text);
+    padding: 2px 4px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+.task-buttons button:hover {
+    background-color: var(--border);
+}
+
+
+@media (max-width: 600px) {
+    .board {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .column {
+        flex: 1 1 100%;
+        min-width: 100%;
+    }
+
+    .add-section {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    input#new-task,
+    #filter-input {
+        width: 100%;
+        box-sizing: border-box;
+    }
+}
+
+
+@media (max-width: 400px) {
+    body {
+        font-size: 14px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header h1 {
+        margin-bottom: 0.5rem;
+    }
+
+    .task-buttons button {
+        font-size: 0.85em;
+        padding: 2px 3px;
+    }
+
+    .task .time {
+        font-size: 0.55rem;
+    }
+}
